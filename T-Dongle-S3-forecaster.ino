@@ -26,7 +26,7 @@ const String countryCode = COUNTRY_CODE;
 const String lang = LANG;
 
 unsigned long previousMillis = 0;
-const unsigned long interval = 320000; // 5 minutes
+const unsigned long interval = 32000; // 5 minutes
 bool started = false;
 bool showWeatherConditionDetails = true;
 
@@ -179,7 +179,10 @@ String httpGETRequest(const char* serverName) {
   
   int httpResponseCode = http.GET();
   String payload = "{}"; 
-  
+
+  // keep button alive
+  button.tick();
+
   if (httpResponseCode>0) {
     payload = http.getString();
   }
@@ -188,9 +191,6 @@ String httpGETRequest(const char* serverName) {
     tft.println("Error code: ");
     tft.println(httpResponseCode);
   }
-  
-  // keep button alive
-  button.tick();
   
   http.end();
   return payload;
