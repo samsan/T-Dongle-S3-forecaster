@@ -156,6 +156,7 @@ void updateImageAndLed(const uint16_t* weatherConditionIconId, int ledHue, int s
   // TODO manage if it's nighttime
   leds = CHSV(ledHue, saturation, 255);
   FastLED.show();
+  button.tick();
 }
 
 // TFT
@@ -178,6 +179,7 @@ String httpGETRequest(const char* serverName) {
   http.begin(client, serverName);
   
   int httpResponseCode = http.GET();
+  button.tick();
   String payload = "{}"; 
 
   // keep button alive
@@ -193,5 +195,6 @@ String httpGETRequest(const char* serverName) {
   }
   
   http.end();
+  button.tick();
   return payload;
 }
